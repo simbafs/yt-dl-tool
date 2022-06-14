@@ -1,24 +1,27 @@
 #!/bin/bash
 
-# check youtube-dl is installed
-which youtube-dl
+ytdl=yt-dlp
+ffmpeg=ffmpeg
+
+# check $ytdl is installed
+which $ytdl
 if [[ $? != 0 ]];
 then
-	echo please install youtube-dl first
+	echo please install $ytdl first
 	echo '```'
-	echo sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-	echo sudo chmod a+rx /usr/local/bin/youtube-dl
+	echo sudo curl -L https://yt-dl.org/downloads/latest/$ytdl -o /usr/local/bin/youtube-dl
+	echo sudo chmod a+rx /usr/local/bin/$ytdl
 	echo '```'
 	exit 1
 fi
 
-# check ffmpeg is installed
-which ffmpeg
+# check $ffmpeg is installed
+which $ffmpeg
 if [[ $? != 0 ]];
 then
-	echo please install ffmpeg first
+	echo please install $ffmpeg first
 	echo '```'
-	echo sudo apt install ffmpeg
+	echo sudo apt install $ffmpeg
 	echo '```'
 	exit 2
 fi
@@ -52,8 +55,8 @@ do
 
 	if [[ -z $name ]];
 	then
-		youtube-dl -q -x --audio-format mp3 $url 
+		$ytdl -q -x --audio-format mp3 $url 
 	else
-		youtube-dl -q -o "${name}.%(ext)s" -x --audio-format mp3 $url
+		$ytdl -q -o "${name}.%(ext)s" -x --audio-format mp3 $url
 	fi
 done
